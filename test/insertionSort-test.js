@@ -13,6 +13,12 @@ describe('insertionSort tests', () => {
     expect(unsorted).to.be.sorted();
   })
 
+  //it should sort an unsorted array with 1000 items
+    //import js file for large array generator
+    //generate large array
+    //run bubbleSort on that array
+    //expect that array to be sorted
+
   //it should sort an unsorted array with 10000 items
     //import js file for large array generator
     //generate large array
