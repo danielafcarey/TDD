@@ -2,6 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 chai.use(require('chai-sorted'));
+const arrayGenerator = require('../lib/arrayGenerator.js');
 const quickSort = require('../lib/quickSort.js');
 
 describe('quickSort tests', () => {

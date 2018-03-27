@@ -2,6 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const expect = chai.expect;
 chai.use(require('chai-sorted'));
+const arrayGenerator = require('../lib/arrayGenerator.js');
 const bubbleSort = require('../lib/bubbleSort.js');
 // import bubbleSort from '../lib/bubbleSort.js';
 
