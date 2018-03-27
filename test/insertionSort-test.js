@@ -32,6 +32,7 @@ describe('insertionSort tests', () => {
   })
 
   //test for larger arrays
+  //test that it returns an array of the same length
 
   it('should sort an array with multiple of the same elements in it', () => {
     let unsorted = [1, 6, 6, 7, 3, 4]
