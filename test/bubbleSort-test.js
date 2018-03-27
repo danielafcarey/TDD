@@ -16,11 +16,15 @@ describe('bubbleSort tests', () => {
     expect(unsorted).to.be.sorted();
   })
 
-  it('should sort an unsorted array', () => {
-    let unsorted = [3, 4, 2, 5, 1];
-    bubbleSort(unsorted);
+  //it should sort an unsorted array with 10000 items
+    //import js file for large array generator
+    //generate large array
+    //run bubbleSort on that array
+    //expect that array to be sorted
 
-    assert.deepEqual(unsorted, [1, 2, 3, 4, 5])
-  })
+  //it should sort an array with multiple of the same elements in it
+    //create array with duplicates
+    //run bubbleSort on that array
+    //expect that array to be sorted
 
 })
