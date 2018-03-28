@@ -30,7 +30,13 @@ describe('mergeSort', () => {
     expect(unsorted).to.be.sorted();
   })
 
-  //test for larger arrays
+  it('should sort an unsorted array with 1,100,000 items', () => {
+    let unsorted = arrayGenerator(1100000);
+
+    unsorted = mergeSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
 
   it('should sort an array with multiple of the same elements in it', () => {
     let unsorted = [1, 6, 6, 7, 3, 4]
