@@ -4,11 +4,10 @@ const expect = chai.expect;
 chai.use(require('chai-sorted'));
 const arrayGenerator = require('../lib/array-generator.js');
 const bubbleSort = require('../lib/bubbleSort.js');
-// import bubbleSort from '../lib/bubbleSort.js';
 
 //expect(["a","b"]).to.be.sorted()
 
-describe('bubbleSort tests', () => {
+describe('bubbleSort', () => {
 
   it('should sort an unsorted array', () => {
     let unsorted = arrayGenerator(5);

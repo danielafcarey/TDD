@@ -5,7 +5,7 @@ chai.use(require('chai-sorted'));
 const arrayGenerator = require('../lib/array-generator.js');
 const insertionSort = require('../lib/insertionSort.js');
 
-describe('insertionSort tests', () => {
+describe('insertionSort', () => {
 
   it('should sort an unsorted array', () => {
     let unsorted = arrayGenerator(5);

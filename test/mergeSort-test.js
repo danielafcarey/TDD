@@ -5,12 +5,11 @@ chai.use(require('chai-sorted'));
 const arrayGenerator = require('../lib/array-generator.js');
 const mergeSort = require('../lib/mergeSort.js');
 
-describe('mergeSort tests', () => {
-
+describe('mergeSort', () => {
   it('should sort an unsorted array', () => {
     let unsorted = arrayGenerator(5);
 
-    mergeSort(unsorted);
+    unsorted = mergeSort(unsorted);
 
     expect(unsorted).to.be.sorted();
   })
@@ -18,7 +17,7 @@ describe('mergeSort tests', () => {
   it('should sort an unsorted array with 1000 items', () => {
     let unsorted = arrayGenerator(1000);
 
-    mergeSort(unsorted);
+    unsorted = mergeSort(unsorted);
 
     expect(unsorted).to.be.sorted();
   })
@@ -26,7 +25,7 @@ describe('mergeSort tests', () => {
   it('should sort an unsorted array with 10000 items', () => {
     let unsorted = arrayGenerator(10000);
 
-    mergeSort(unsorted);
+    unsorted = mergeSort(unsorted);
 
     expect(unsorted).to.be.sorted();
   })
@@ -36,7 +35,7 @@ describe('mergeSort tests', () => {
   it('should sort an array with multiple of the same elements in it', () => {
     let unsorted = [1, 6, 6, 7, 3, 4]
 
-    mergeSort(unsorted);
+    unsorted = mergeSort(unsorted);
 
     expect(unsorted).to.be.sorted();
   })
