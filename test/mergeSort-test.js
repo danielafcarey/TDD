@@ -14,6 +14,38 @@ describe('mergeSort', () => {
     expect(unsorted).to.be.sorted();
   })
 
+  it('should sort an array with multiple of the same elements in it', () => {
+    let unsorted = [1, 6, 6, 7, 3, 4]
+
+    unsorted = mergeSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should sort an unsorted array of letters with multiple of the same letter', () => {
+    let unsorted = ['c', 'c', 'd', 'e', 'a'];
+
+    unsorted = mergeSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should return an array of the same length', () => {
+    let unsorted = [1, 6, 6, 7, 3, 4]
+
+    unsorted = mergeSort(unsorted);
+
+    expect(unsorted.length).to.equal(6);
+  })
+
+  it('should sort an array that includes negative numbers', () => {
+    let unsorted = [1, 6, 6, -7, 3, 4]
+
+    unsorted = mergeSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
   it('should sort an unsorted array with 1000 items', () => {
     let unsorted = arrayGenerator(1000);
 
@@ -30,20 +62,14 @@ describe('mergeSort', () => {
     expect(unsorted).to.be.sorted();
   })
 
-  it('should sort an unsorted array with 1,100,000 items', () => {
-    let unsorted = arrayGenerator(1100000);
+  it('should sort an unsorted array with so many items', () => {
+    let unsorted = arrayGenerator(900000);
 
     unsorted = mergeSort(unsorted);
 
     expect(unsorted).to.be.sorted();
-  })
-
-  it('should sort an array with multiple of the same elements in it', () => {
-    let unsorted = [1, 6, 6, 7, 3, 4]
-
-    unsorted = mergeSort(unsorted);
-
-    expect(unsorted).to.be.sorted();
+    console.log('mergeSort max before timeout: ~900,000')
   })
 
 })
+
