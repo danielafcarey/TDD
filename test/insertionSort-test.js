@@ -15,6 +15,38 @@ describe('insertionSort', () => {
     expect(unsorted).to.be.sorted();
   })
 
+  it('should sort an array with multiple of the same elements in it', () => {
+    let unsorted = [1, 6, 6, 7, 3, 4]
+
+    insertionSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should sort an unsorted array of letters with multiple of the same letter', () => {
+    let unsorted = ['c', 'c', 'd', 'e', 'a'];
+
+    insertionSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should return an array of the same length', () => {
+    let unsorted = [1, 6, 6, 7, 3, 4]
+
+    insertionSort(unsorted);
+
+    expect(unsorted.length).to.equal(6);
+  })
+
+  it('should sort an array that includes negative numbers', () => {
+    let unsorted = [1, 6, 6, -7, 3, 4]
+
+    insertionSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
   it('should sort an unsorted array with 1000 items', () => {
     let unsorted = arrayGenerator(1000);
 
@@ -31,17 +63,14 @@ describe('insertionSort', () => {
     expect(unsorted).to.be.sorted();
   })
 
-  //test for larger arrays
-  //test that it returns an array of the same length
-
-  it('should sort an array with multiple of the same elements in it', () => {
-    let unsorted = [1, 6, 6, 7, 3, 4]
+  it('should sort an unsorted array with so many items', () => {
+    let unsorted = arrayGenerator(13000);
 
     insertionSort(unsorted);
 
     expect(unsorted).to.be.sorted();
+    console.log('insertionSort max before timeout: ~13,000')
   })
 
-  //it should not continue checking the comparing the unsortedArray[0] with the items in the sorted array once unsortedArray[0] is greater than an item in the sortedArray
-
 })
+

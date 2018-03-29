@@ -5,12 +5,42 @@ chai.use(require('chai-sorted'));
 const arrayGenerator = require('../lib/array-generator.js');
 const bubbleSort = require('../lib/bubbleSort.js');
 
-//expect(["a","b"]).to.be.sorted()
-
 describe('bubbleSort', () => {
 
   it('should sort an unsorted array', () => {
     let unsorted = arrayGenerator(5);
+
+    bubbleSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should sort an array with multiple of the same elements in it', () => {
+    let unsorted = [1, 6, 6, 7, 3, 4]
+
+    bubbleSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should sort an unsorted array of letters with multiple of the same letter', () => {
+    let unsorted = ['c', 'c', 'd', 'e', 'a'];
+
+    bubbleSort(unsorted);
+
+    expect(unsorted).to.be.sorted();
+  })
+
+  it('should return an array of the same length', () => {
+    let unsorted = [1, 6, 6, 7, 3, 4]
+
+    bubbleSort(unsorted);
+
+    expect(unsorted.length).to.equal(6);
+  })
+
+  it('should sort an array that includes negative numbers', () => {
+    let unsorted = [1, 6, 6, -7, 3, 4]
 
     bubbleSort(unsorted);
 
@@ -33,23 +63,14 @@ describe('bubbleSort', () => {
     expect(unsorted).to.be.sorted();
   })
 
-  it('should sort an array with multiple of the same elements in it', () => {
-    let unsorted = [1, 6, 6, 7, 3, 4]
+  it('should sort an unsorted array with so many items', () => {
+    let unsorted = arrayGenerator(12000);
 
     bubbleSort(unsorted);
 
     expect(unsorted).to.be.sorted();
+    console.log('bubbleSort max before timeout: ~12,000')
   })
-
+  
 })
 
-
-
-//TEST TIMED-OUT :(
-  // it('should sort an unsorted array with 100,000 items', () => {
-  //   let unsorted = arrayGenerator(100000);
-
-  //   bubbleSort(unsorted);
-
-  //   expect(unsorted).to.be.sorted();
-  // })
