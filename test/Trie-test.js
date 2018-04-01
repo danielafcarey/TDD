@@ -1,8 +1,8 @@
-const assert = require('chai').assert;
+import { assert, expect } from 'chai';
 const Trie = require('../lib/Trie.js');
-// import fs from 'fs';
-// const text = "/usr/share/dict/words";
-// const dictionary = fs.readFileSync(text).toString().trim().split('\n');
+import fs from 'fs';
+const text = "/usr/share/dict/words";
+const dictionary = fs.readFileSync(text).toString().trim().split('\n');
 
 describe('Trie', () => {
   it('should instantiate a new trie', () => {
@@ -45,10 +45,9 @@ describe('Trie', () => {
     const completion = new Trie();
 
     completion.populate(dictionary);
-    let suggestions = completion.suggest('pup');
+    let suggestions = completion.suggest('Zyz');
 
-    //find all pup words in computer dictionary for array test below
-    assert.equal(suggestions, [])
+    assert.equal(suggestions, ['Zyzomys', 'Zyzzogeton'])
   })
 
 
