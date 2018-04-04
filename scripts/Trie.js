@@ -47,14 +47,13 @@ class Trie {
   }
 
   findWordSuggestions(startNode, prefix) {
+    if (startNode.endOfWord) {
+      this.suggestions.push(prefix)
+    }
+
     Object.keys(startNode.children).forEach(childData => { 
       let currentNode = startNode.children[childData];
-
-      if (currentNode.endOfWord) {
-        this.suggestions.push(prefix + childData)
-      } 
-
-      return this.findWordSuggestions(currentNode, prefix + childData)
+      this.findWordSuggestions(currentNode, prefix + childData)
     })
   } 
 
@@ -62,12 +61,6 @@ class Trie {
     dataSet.forEach(data => this.insert(data));
   }
 
-  //find() {}
-
 }
-
-
-
-
 
 module.exports = Trie;
