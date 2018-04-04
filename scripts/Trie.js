@@ -86,14 +86,6 @@ class Trie {
     }
   }
 
-  // clusterTrie(currentNode = this.root) {
-  //   Object.keys(currentNode.children).forEach(child => {
-  //     if (Object.keys(currentNode[child].children).length === 1) {
-  //       currentNode[child].data
-  //     }
-  //   })
-  // }
-
 }
 
 module.exports = Trie;
