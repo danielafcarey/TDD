@@ -1,10 +1,12 @@
-export default class Node {
+class Node {
   constructor(data = null) {
     this.data = data;
     this.children = {};
-    this.endOfWord = null;
+    this.endOfWord = false;
   }
 }
+
+module.exports = Node;
 
 //key is the letter, value is new Node obj
 
