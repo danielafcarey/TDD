@@ -62,18 +62,19 @@ describe('Trie', () => {
       expect(trie.root.children.a.endOfWord).to.equal(true);
     });
 
-  });
+    it('should change the last letter node property endOfWord to true when finished adding a word to the trie', () => {
+      trie.insert('hi');
 
+      expect(trie.root.children.h.endOfWord).to.equal(false);
+      expect(trie.root.children.h.children.i.endOfWord).to.equal(true);
+    });
 
-  describe('count', () => { 
-    it('should be able to keep track of how many words have been inserted', () => {
+    it('should update the wordCount after a word is inserted into the trie', () => {
       trie.insert('pupper');
-      let wordCount = trie.count();
-      expect(wordCount).to.equal(1);
+      expect(trie.wordCount).to.equal(1);
 
       trie.insert('pupperino');
-      wordCount = trie.count();
-      expect(wordCount).to.equal(2);
+      expect(trie.wordCount).to.equal(2);
     });
 
     it('should not increase the word count if the word already exists in the trie', () => {
@@ -84,6 +85,20 @@ describe('Trie', () => {
       trie.insert('pupper');
       wordCount = trie.count();
       expect(wordCount).to.equal(1);
+    });
+  });
+
+
+  describe('count', () => { 
+    it('should return the total word count', () => {
+      trie.insert('pupper');
+      let wordCount = trie.count();
+      expect(wordCount).to.equal(1);
+
+      trie.insert('pupperino');
+      wordCount = trie.count();
+      expect(wordCount).to.equal(2);
+
     });
 
   });
@@ -130,6 +145,16 @@ describe('Trie', () => {
       expect(suggestions).to.deep.equal(['a']);
     })
 
+    it('should be able to find a prefix of any case in the trie', () => {
+      trie.insert('HI');
+
+      let suggestions = trie.suggest('hi');
+      expect(suggestions).to.deep.equal(['hi']);
+
+      suggestions = trie.suggest('HI');
+      expect(suggestions).to.deep.equal(['hi']);
+    });
+
   });
 
 
@@ -138,7 +163,7 @@ describe('Trie', () => {
       trie.populate(dictionary);
       let wordCount = trie.count();
 
-      expect(wordCount).to.equal(235886);
+      expect(wordCount).to.equal(234371);
 
     });
 
@@ -146,7 +171,7 @@ describe('Trie', () => {
       trie.populate(dictionary);
       let suggestions = trie.suggest('Zyz');
 
-      expect(suggestions).to.deep.equal(['Zyzomys', 'Zyzzogeton']);
+      expect(suggestions).to.deep.equal(['zyzomys', 'zyzzogeton']);
     });
 
   });

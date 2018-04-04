@@ -8,6 +8,7 @@ class Trie {
   }
 
   insert(word) {
+    word = word.toLowerCase();
     if (typeof word !== 'string') {
       console.error(`Expected ${word} at function insert to be a string.`)
       return;
@@ -33,6 +34,7 @@ class Trie {
   }
 
   suggest(prefix) {
+    prefix = prefix.toLowerCase();
     this.suggestions = [];
     let startNode = this.findStartNode(prefix);
     if (!startNode) {return null};
@@ -76,12 +78,21 @@ class Trie {
   }
 
   delete(word) {
+    word = word.toLowerCase();
     let currentNode = this.findStartNode(word);
     if (currentNode && currentNode.endOfWord) {
         currentNode.endOfWord = false;
         this.wordCount--;
     }
   }
+
+  // clusterTrie(currentNode = this.root) {
+  //   Object.keys(currentNode.children).forEach(child => {
+  //     if (Object.keys(currentNode[child].children).length === 1) {
+  //       currentNode[child].data
+  //     }
+  //   })
+  // }
 
 }
 
