@@ -153,21 +153,31 @@ describe('Trie', () => {
   
 
   describe('delete', () => {
-    it.skip('should remove a word from the trie', () => {
+    it('should remove a word from the trie', () => {
       trie.insert('hi');
-      expect(trie.root.children.h.data).to.equal('h');
-      expect(trie.root.children.h.children.i.data).to.equal('i');
+      expect(trie.root.children.h.children.i.endOfWord).to.equal(true);
 
       trie.delete('hi');
-      expect(trie.root.children).to.be.empty;
+      expect(trie.root.children.h.children.i.endOfWord).to.equal(false);
+
+      let suggestions = trie.suggest('hi');
+      expect(suggestions).to.deep.equal([]);
     });
 
-    it.skip('should update the wordCount when a word is deleted', () => {
+    it('should update the wordCount when a word is deleted', () => {
       trie.insert('hi');
       expect(trie.wordCount).to.equal(1);
 
       trie.delete('hi')
       expect(trie.wordCount).to.equal(0);
+    });
+
+    it('should not update the wordCount if the word was not already in the trie', () => {
+      trie.insert('hi');
+      expect(trie.wordCount).to.equal(1);
+
+      trie.delete('hill');
+      expect(trie.wordCount).to.equal(1);
     });
 
   });

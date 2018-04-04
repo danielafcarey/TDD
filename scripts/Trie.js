@@ -17,13 +17,10 @@ class Trie {
       currentNode = currentNode.children[word[i]];
     }
 
-    if (currentNode.endOfWord) {
-      return;
-    } else {
+    if (!currentNode.endOfWord) {
       currentNode.endOfWord = true;
       this.wordCount++;
     }
-    
   }
 
   count() {
@@ -32,18 +29,25 @@ class Trie {
 
   suggest(prefix) {
     this.suggestions = [];
+    let startNode = this.findStartNode(prefix);
+    if (!startNode) {return null};
+
+    this.findWordSuggestions(startNode, prefix);
+    return this.suggestions;
+  }
+
+  findStartNode(word) {
     let currentNode = this.root;
 
-    for (let i = 0; i < prefix.length; i++) {
-      if (currentNode.children[prefix[i]]) {
-        currentNode = currentNode.children[prefix[i]]
+    for (let i = 0; i < word.length; i++) {
+      if (currentNode.children[word[i]]) {
+        currentNode = currentNode.children[word[i]]
       } else {
         return null;
       }
     }
 
-    this.findWordSuggestions(currentNode, prefix);
-    return this.suggestions;
+    return currentNode
   }
 
   findWordSuggestions(startNode, prefix) {
@@ -59,6 +63,14 @@ class Trie {
 
   populate(dataSet) {
     dataSet.forEach(data => this.insert(data));
+  }
+
+  delete(word) {
+    let currentNode = this.findStartNode(word);
+    if (currentNode && currentNode.endOfWord) {
+        currentNode.endOfWord = false;
+        this.wordCount--;
+    }
   }
 
 }
