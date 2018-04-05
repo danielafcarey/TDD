@@ -2,7 +2,8 @@ class Node {
   constructor(data = null) {
     this.data = data;
     this.children = {};
-    this.endOfWord = false;
+    this.word = null;
+    this.weight = 0;
   }
 }
 

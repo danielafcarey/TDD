@@ -16,7 +16,8 @@
     "chai": "^4.1.2"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register tests"
+    "test": "mocha --compilers js:babel-core/register tests",
+    "eslint": "./node_modules/eslint/bin/eslint.js ./scripts/*.js"
   },
   "repository": {
     "type": "git",

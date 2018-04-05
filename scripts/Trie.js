@@ -1,4 +1,4 @@
-const Node = require('./Node.js')
+const Node = require('./Node.js');
 
 class Trie {
   constructor() {
@@ -9,12 +9,12 @@ class Trie {
 
   insert(word) {
     word = word.toLowerCase();
+    let currentNode = this.root;
+
     if (typeof word !== 'string') {
-      console.error(`Expected ${word} at function insert to be a string.`)
+      console.error(`Expected ${word} at function insert to be a string.`);
       return;
     }
-
-    let currentNode = this.root;
 
     for (let i = 0; i < word.length; i++) {
       if (!currentNode.children[word[i]]) {
@@ -23,8 +23,8 @@ class Trie {
       currentNode = currentNode.children[word[i]];
     }
 
-    if (!currentNode.endOfWord) {
-      currentNode.endOfWord = true;
+    if (!currentNode.word) {
+      currentNode.word = word;
       this.wordCount++;
     }
   }
@@ -33,14 +33,27 @@ class Trie {
     return this.wordCount;
   }
 
+  populate(dataSet) {
+    if (!Array.isArray(dataSet)) {
+      console.error(`Expected argument at function populate to be an array.`);
+      return;
+    }
+
+    dataSet.forEach(data => this.insert(data));
+  }
+
   suggest(prefix) {
     prefix = prefix.toLowerCase();
     this.suggestions = [];
     let startNode = this.findStartNode(prefix);
-    if (!startNode) {return null};
 
-    this.findWordSuggestions(startNode, prefix);
-    return this.suggestions;
+    if (!startNode) {
+      return null;
+    }
+    this.findWordSuggestions(startNode);
+    this.suggestions.sort((a, b) => b.weight - a.weight);
+
+    return this.suggestions.map(node => node.word);
   }
 
   findStartNode(word) {
@@ -48,41 +61,42 @@ class Trie {
 
     for (let i = 0; i < word.length; i++) {
       if (currentNode.children[word[i]]) {
-        currentNode = currentNode.children[word[i]]
+        currentNode = currentNode.children[word[i]];
       } else {
         return null;
       }
     }
 
-    return currentNode
+    return currentNode;
   }
 
-  findWordSuggestions(startNode, prefix) {
-    if (startNode.endOfWord) {
-      this.suggestions.push(prefix)
+  findWordSuggestions(startNode) {
+    if (startNode.word) {
+      this.suggestions.push(startNode);
     }
 
     Object.keys(startNode.children).forEach(childData => { 
       let currentNode = startNode.children[childData];
-      this.findWordSuggestions(currentNode, prefix + childData)
-    })
-  } 
 
-  populate(dataSet) {
-    if (!Array.isArray(dataSet)) {
-      console.error(`Expected argument at function populate to be an array.`)
-      return;
-    }
-
-    dataSet.forEach(data => this.insert(data));
+      this.findWordSuggestions(currentNode);
+    });
   }
 
   delete(word) {
     word = word.toLowerCase();
     let currentNode = this.findStartNode(word);
-    if (currentNode && currentNode.endOfWord) {
-        currentNode.endOfWord = false;
-        this.wordCount--;
+
+    if (currentNode && currentNode.word) {
+      currentNode.word = null;
+      this.wordCount--;
+    }
+  }
+
+  select(word) {
+    let currentNode = this.findStartNode(word);
+
+    if (currentNode && currentNode.word) {
+      currentNode.weight++;
     }
   }
 
