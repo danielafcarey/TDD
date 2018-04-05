@@ -18,10 +18,11 @@ describe('Trie', () => {
     expect(trie.suggestions).to.be.empty;
   });
 
-  it('should have a root node with default properties data as null, children as {}, and endOfWord as false', () => {
+  it('should have a root node with default properties data as null, children as {}, word as null, and weight as 0', () => {
     expect(trie.root.data).to.equal(null);
     expect(trie.root.children).to.be.empty;
-    expect(trie.root.endOfWord).to.equal(false);
+    expect(trie.root.word).to.equal(null);
+    expect(trie.root.weight).to.equal(0);
   });
 
 
@@ -59,14 +60,14 @@ describe('Trie', () => {
       trie.insert('a');
 
       expect(trie.root.children.a.data).to.equal('a')
-      expect(trie.root.children.a.endOfWord).to.equal(true);
+      expect(trie.root.children.a.word).to.equal('a');
     });
 
     it('should change the last letter node property endOfWord to true when finished adding a word to the trie', () => {
       trie.insert('hi');
 
-      expect(trie.root.children.h.endOfWord).to.equal(false);
-      expect(trie.root.children.h.children.i.endOfWord).to.equal(true);
+      expect(trie.root.children.h.word).to.equal(null);
+      expect(trie.root.children.h.children.i.word).to.equal('hi');
     });
 
     it('should update the wordCount after a word is inserted into the trie', () => {
@@ -139,7 +140,7 @@ describe('Trie', () => {
     it('should be able to return a word that is a child of the root', () => {
       trie.insert('a');
       expect(trie.root.children.a.data).to.equal('a');
-      expect(trie.root.children.a.endOfWord).to.equal(true);
+      expect(trie.root.children.a.word).to.equal('a');
 
       let suggestions = trie.suggest('a');
       expect(suggestions).to.deep.equal(['a']);
@@ -180,10 +181,10 @@ describe('Trie', () => {
   describe('delete', () => {
     it('should remove a word from the trie', () => {
       trie.insert('hi');
-      expect(trie.root.children.h.children.i.endOfWord).to.equal(true);
+      expect(trie.root.children.h.children.i.word).to.equal('hi');
 
       trie.delete('hi');
-      expect(trie.root.children.h.children.i.endOfWord).to.equal(false);
+      expect(trie.root.children.h.children.i.word).to.equal(null);
 
       let suggestions = trie.suggest('hi');
       expect(suggestions).to.deep.equal([]);
@@ -208,12 +209,24 @@ describe('Trie', () => {
   });
 
 
+  describe('select', () => {
+    it('should update the weight property for that word', () => {
+      trie.populate(dictionary);
+
+      expect(trie.root.children.d.children.o.children.g.weight).to.equal(0);
+      trie.select('dog');
+      expect(trie.root.children.d.children.o.children.g.weight).to.equal(1);
+    });
+
+    it('should prioritize most commonly selected words', () => {
+      trie.populate(dictionary);
+      trie.select('dog');
+
+      let suggestions = trie.suggest('do');
+      expect(suggestions[0]).to.equal('dog');
+    });
+
+  });
+
 });
 
-
-
-
-
-
-
-// console.log(JSON.stringify(trie, null, 2))
